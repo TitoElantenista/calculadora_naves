@@ -5,38 +5,38 @@ import numpy as np
 import os
 import pandas as pd
 
-# Set page to wide mode
+# Poner pagina en ancho
 st.set_page_config(layout="wide")
 
-# Get list of excel files in the specified directory
+# Obtener lista de excel
 excel_files = [file for file in os.listdir("DBs") if file.endswith(".xlsx")]
 excel_files_without_ext = [file.replace('.xlsx','') for file in excel_files]
 lista_vigas_pilares = ['HEA', 'HEB', 'HEM', 'I-Profile', 'IPE']
 
 # DF vacio para guardar resultados
 results_df = pd.DataFrame()
-# Create a dictionary to store the DataFrames
+# Diccionario para guardar los resultados
 dfs = {}
 
 # Loop por los excel files
 for file in excel_files:
-   # Read excel file
+   # Leer excel
    df2 = pd.read_excel(os.path.join("DBs", file))
-   # Filter dataframe to include only rows with the search value in the first column
-   # Transpose the DataFrame
-   # Set the first column as the index
+   # Filtrar DF para incluir solo filas con el termino buscado en la primera columna
+   # Transpose el DF
+   # Establecer primera columna como index
    df2 = df2.set_index(df2.columns[0])
    df2 = df2.T
    df2.rename(columns=lambda x: x.replace("_x000D_", "_"), inplace=True)
-   # Set the columns as the new index
+   # Establecer columnas como nuevo indice
    df2.index.name = "Perfil"
    df2.reset_index(inplace=True)
    df2.rename(columns={'index':df2.index.name}, inplace=True)
-   # Get the first column name
+   # Obtener el nombre de la primera columna
    first_col = df2.columns[0]
-   # Rename the first column
+   # Cambiar el nombre
    df2 = df2.rename(columns={first_col: "Perfil"})
-   # Add the DataFrame to the dictionary
+   # Add el DF al diccionario creado previamente
    dfs[file] = df2
 
 st.title("Calculadora de costes de construcción de nave industrial")
@@ -130,7 +130,7 @@ ax.axhline(line_middle_bottom, linestyle="--", color="green")
 
 
 ##################CORREAS TRAUFE IZQUIERDA#################################################
-# Get the coordinates of the first line
+# Obtener coordenadas de la primera linea
 x1 = 0
 y1 = line_bottom, line_top
 
@@ -139,7 +139,7 @@ y2 = line_bottom + line_distance, line_top - line_distance
 # Plot a red line between the two points
 ax.plot([x1, x2], [y1, y2], color='red')
 
-# Get the coordinates of the second line
+# Obtener coordenadas de la segunda linea
 x1 = 0
 y1 = line_bottom + line_distance, line_top - line_distance
 
@@ -149,43 +149,43 @@ y2 = line_bottom, line_top
 # Plot a red line between the two points
 ax.plot([x1, x2], [y1, y2], color='red')
 ##################CORREAS CENTRALES IZQUIERDA#################################################
-# Get the coordinates of the first line
+# Obtener coordenadas de la primera linea
 x1f = 0
 y1f = middle_y - 0.2,  correas_lado * line_distance + 0.2
 
 x2f = distancia_porticos_finales
 y2f = correas_lado * line_distance + 0.2, middle_y - 0.2
-# Plot a red line between the two points
+# Linea roja entre los dos puntos
 ax.plot([x1f, x2f], [y1f, y2f], color='red')
 
-# Get the coordinates of the second line
+# Obtener coordenadas de la segunda linea
 x1f = 0
 y1f = line_bottom + line_distance, line_top - line_distance
 
 x2f = distancia_porticos_finales
 y2f = line_bottom, line_top
 
-# Plot a red line between the two points
+# Linea roja entre los dos puntos
 ax.plot([x1f, x2f], [y1f, y2f], color='red')
 
 
-# Get the coordinates of the first line
+# Obtener coordenadas de la primera linea
 x1f2 = 0
 y1f2 = middle_y + 0.2, last_y - (correas_lado * line_distance + 0.2)
 
 x2f2 = distancia_porticos_finales
 y2f2 = last_y - (correas_lado * line_distance + 0.2), middle_y + 0.2
-# Plot a red line between the two points
+# Linea roja entre los dos puntos
 ax.plot([x1f2, x2f2], [y1f2, y2f2], color='red')
 
-# Get the coordinates of the second line
+# Obtener coordenadas de la segunda linea
 x1f2 = 0
 y1f2 = line_bottom + line_distance, line_top - line_distance
 
 x2f2 = distancia_porticos_finales
 y2f2 = line_bottom, line_top
 
-# Plot a red line between the two points
+# Linea roja entre los dos puntos
 ax.plot([x1f2, x2f2], [y1f2, y2f2], color='red')
 
 ##################ARRIOSTRAMIENTOS CENTRALES#################################################
@@ -337,6 +337,9 @@ y2_end = altura_alero + largo_riegel*np.sin(np.deg2rad(inclinacion_tejado))
 ax.plot([x_start, x_end], [y_start, y_end], color='blue', linewidth=1)
 # Agregar línea inclinada riegel derecha
 ax.plot([x2_start, x2_end], [y2_start, y2_end], color='blue', linewidth=1)
+
+#Limites Plot
+ax.set_ylim(0, y_end + 0.5)
 
 #Grosor viga
 # Calculate the angle perpendicular to the inclined lines
