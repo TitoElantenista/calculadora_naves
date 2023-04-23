@@ -297,7 +297,7 @@ ax.set_ylim(-0.5, altura_alero + 2*largo_riegel*np.sin(np.deg2rad(inclinacion_te
 
 # Agregar línea roja en el eje x
 ax.axhline(y=0, color='black', linewidth=0.5, xmin=0.0, xmax=ancho_nave)
-
+col1.markdown("---")
 perfilestipo_columnas = col1.selectbox("Selecciona el tipo de perfil", lista_vigas_pilares, index=4)
 
 df_pilar = dfs[perfilestipo_columnas+".xlsx"]
@@ -545,7 +545,7 @@ col2.text("Leyenda.\n"
         "Azul: Porticos\n"
         "Verde: Correas")
 pilar_peso_m = df_pilar.loc[df_pilar["Perfil"] == selector_pilar, "gk [kg/m]"].iloc[0]
-viga_peso_m = df_viga.loc[df_viga["Perfil"] == selector_pilar, "gk [kg/m]"].iloc[0]
+viga_peso_m = df_viga.loc[df_viga["Perfil"] == selector_viga, "gk [kg/m]"].iloc[0]
 peso_pilares = round(cantidad_porticos * 2 * altura_alero * pilar_peso_m * 1.12/1000, 2)
 peso_vigas = round(cantidad_porticos * 2 * largo_riegel * viga_peso_m * 1.25/1000, 2)
 largo_correas = (correas_lado + 2) * 2 * ancho_nave
