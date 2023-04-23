@@ -11,6 +11,7 @@ st.set_page_config(layout="wide")
 # Get list of excel files in the specified directory
 excel_files = [file for file in os.listdir("DBs") if file.endswith(".xlsx")]
 excel_files_without_ext = [file.replace('.xlsx','') for file in excel_files]
+lista_vigas_pilares = ['HEA', 'HEB', 'HEM', 'I-Profile', 'IPE']
 
 # DF vacio para guardar resultados
 results_df = pd.DataFrame()
@@ -297,7 +298,7 @@ ax.set_ylim(-0.5, altura_alero + 2*largo_riegel*np.sin(np.deg2rad(inclinacion_te
 # Agregar línea roja en el eje x
 ax.axhline(y=0, color='black', linewidth=0.5, xmin=0.0, xmax=ancho_nave)
 
-perfilestipo_columnas = col1.selectbox("Selecciona el tipo de perfil", excel_files_without_ext, index=5)
+perfilestipo_columnas = col1.selectbox("Selecciona el tipo de perfil", lista_vigas_pilares, index=4)
 
 df_pilar = dfs[perfilestipo_columnas+".xlsx"]
 
@@ -317,7 +318,7 @@ pilar_peso_m = df_pilar.loc[df_pilar["Perfil"] == selector_pilar, "gk [kg/m]"].i
 
 
 col1.markdown("---")
-perfilestipo_vigas = col1.selectbox("Selecciona el tipo de perfil para las vigas", excel_files_without_ext, index=5)
+perfilestipo_vigas = col1.selectbox("Selecciona el tipo de perfil para las vigas", lista_vigas_pilares, index=4)
 df_viga = dfs[perfilestipo_vigas+".xlsx"]
 selector_viga = col1.selectbox("Seleccionar perfil", key = "dropviga", options=df_viga["Perfil"].tolist(), index=12)
 viga_ancho = df_viga.loc[df_viga["Perfil"] == selector_viga, "Altura h [mm]"].iloc[0] / 1000  # Convert to meters
