@@ -2,9 +2,7 @@ import streamlit as st
 from PIL import Image
 
 
-st.set_page_config(page_title="Intro",
-               layout="wide"
-)
+st.set_page_config(page_title="Intro")
 
 st.markdown("<h1 style='text-align: center;'>Presentación de la idea y conclusiones</h1>", unsafe_allow_html=True)
 
