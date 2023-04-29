@@ -122,8 +122,8 @@ def display_vista_superior(geo: Geometry, ui: UserInputs, col2) -> tuple:
     ax.set_aspect("equal")
     ax.set_xlim(
         0,
-        (ui.cantidad_porticos-2)*ui.distancia_porticos_internos
-            + ui.distancia_porticos_finales)
+        (ui.cantidad_porticos-3)*ui.distancia_porticos_internos
+            + ui.distancia_porticos_finales*2)
     ax.set_ylim(0, ui.ancho_nave)
     # Add red horizontal line in the middle of y
     ax.axhline(y=ui.ancho_nave/2, color=RED)
