@@ -135,7 +135,7 @@ def display_vista_superior(geo: Geometry, ui: UserInputs, col2) -> tuple:
     ax.axvline(-ui.distancia_porticos_finales, color=BLUE)
 
     # Draw vertical lines
-    for i in range(ui.cantidad_porticos):
+    for i in range(ui.cantidad_porticos - 2):
         x = ui.distancia_porticos_finales + i * ui.distancia_porticos_internos
         ax.axvline(x, linestyle="--", color=BLUE)
     # Get the last value on the x, y axis and half of y
